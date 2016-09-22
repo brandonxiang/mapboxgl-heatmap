@@ -4,12 +4,16 @@
   "description": "Rudamentary MapBoxGL Plugin to add ability to add a heatmap",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"browserify index.js > dist/mapboxgl-heatmap.js"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:jvrousseau/mapboxgl-heatmap.git"
   },
   "author": "Jordan Rousseau",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "browserify": "^13.1.0"
+  }
 }
