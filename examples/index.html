@@ -7,7 +7,7 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.24.0/mapbox-gl.js'></script>
     <script src="../dist/mapboxgl-heatmap.js"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.24.0/mapbox-gl.css' rel='stylesheet' />
-    <script src="http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js"></script>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -21,25 +21,25 @@
         var mainmap = new mapboxgl.Map({
             container: 'map', // container id
             style: 'mapbox://styles/mapbox/streets-v9', //stylesheet location
-            center: [-74.50, 40], // starting position
-            zoom: 9 // starting zoom
+            center: [116.635712, 39.91792], // starting position
+            zoom: 9, // starting zoom,
+            hash:true
         });
 
         mainmap.addControl(new mapboxgl.Navigation());
 
         var heatmap = mapbox_heat.heatmap(mainmap);
 
-        addpoints(-73,50);
-        addpoints(-72,51);
-        addpoints(-73,39);
-        addpoints(-74,42);
-        addpoints(-75,41);
-
+        $.getJSON("data.json",function(s){
+            for(var i=0;i< s.data.length;i++){
+                addpoints(s.data[i].lng, s.data[i].lat);
+            }
+        })
 
         function addpoints(lng, lat){
             var lnglat = new mapboxgl.LngLat(lng, lat);
             var point = mainmap.project(lnglat);
-            heatmap.addPoint(point.x, point.y, 25, 0.5);
+            heatmap.addPoint(point.x, point.y, 25, 1);
         }
 
 
