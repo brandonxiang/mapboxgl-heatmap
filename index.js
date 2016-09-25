@@ -4,7 +4,7 @@ var req_anim_frame = window.requestAnimationFrame || window.mozRequestAnimationF
 function HM(map) {
     this.heatmap_canvas = document.createElement('canvas');
     this.heatmap_canvas.classList.add('heatmap-canvas');
-    map.container.appendChild(this.heatmap_canvas);
+    map._container.appendChild(this.heatmap_canvas);
     this.heatmap_canvas.setAttribute('style', 'position: absolute;');
     map.on('move', (this._resetHeatmap).bind(this));
     map.on('movestart', (this._resetHeatmap).bind(this));
@@ -17,7 +17,7 @@ function HM(map) {
         canvas: this.heatmap_canvas
     });
 
-    this._resizeCanvas(map.container.offsetWidth, map.container.offsetHeight);
+    this._resizeCanvas(map._container.offsetWidth, map._container.offsetHeight);
     req_anim_frame((this._updateHeatmap).bind(this));
 };
 

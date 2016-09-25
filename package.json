@@ -4,8 +4,10 @@
   "description": "Rudamentary MapBoxGL Plugin to add ability to add a heatmap",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"browserify index.js > dist/mapboxgl-heatmap.js"
+    "test": "browserify test.js > dist/test.js",
+    "build":"browserify index.js --standalone mapbox_heat > dist/mapboxgl-heatmap.js",
+    "dev":"browser-sync start --server --file \"**/*.html,**/*.css,**/*.js\""
+
   },
   "repository": {
     "type": "git",
