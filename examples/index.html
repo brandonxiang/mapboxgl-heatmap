@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>example-mapboxgl-heatmap</title>
-     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.24.0/mapbox-gl.js'></script>
     <script src="../dist/mapboxgl-heatmap.js"></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.24.0/mapbox-gl.css' rel='stylesheet' />
     <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
     <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:0; bottom:0; width:100%; }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
+
 <body>
     <div id='map'></div>
     <script>
-
         mapboxgl.accessToken = 'pk.eyJ1IjoieHdwaXNtZSIsImEiOiJ5cTlCQTlRIn0.QdV-wNUKbgs7jAlbVE747Q';
         var mainmap = new mapboxgl.Map({
             container: 'map', // container id
             style: 'mapbox://styles/mapbox/streets-v9', //stylesheet location
             center: [116.635712, 39.91792], // starting position
             zoom: 9, // starting zoom,
-            hash:true
+            hash: true
         });
 
         mainmap.addControl(new mapboxgl.Navigation());
 
         var heatmap = mapbox_heat.heatmap(mainmap);
 
-        $.getJSON("data.json",function(s){
-            for(var i=0;i< s.data.length;i++){
-                addpoints(s.data[i].lng, s.data[i].lat);
+        $.getJSON("data.json", function(s) {
+            for (var i = 0; i < s.data.length; i++) {
+                heatmap.addPoint(s.data[i].lng, s.data[i].lat, 25, 1);
             }
-        })
-
-        function addpoints(lng, lat){
-            var lnglat = new mapboxgl.LngLat(lng, lat);
-            var point = mainmap.project(lnglat);
-            heatmap.addPoint(point.x, point.y, 25, 1);
-        }
-
-
-
+            heatmap.draw();
+        });
     </script>
 </body>
+
 </html>
